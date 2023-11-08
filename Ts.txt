@@ -1,0 +1,68 @@
+chance = 43
+multi = 1.9
+a=0
+b=0
+c=-2
+d=0
+i = balance*0.98
+k = 9800
+roll=0
+rollcount=0
+base= balance/1000000
+nextbet = base
+target = balance*1.033
+losecount=0
+wincount=0
+i = balance*0.985
+k = 400
+function dobet()
+roll+=1
+if (balance > target) then stop()
+end
+a+=0.05
+rollcount+=1
+if rollcount==77 then
+rollcount=0
+resetseed()
+end
+if wincount==10 then
+wincount=0
+bethigh=!bethigh
+end
+if win then
+a=0
+b=0
+c=-2
+d=0
+nextbet = base
+chance = 43
+multi = 1.9
+losecount=0
+wincount+=1
+else
+nextbet = 0
+chance+=c
+nextbet = previousbet*(multi-a)
+losecount+=1
+end
+ if roll>=50 and i>k then
+resetseed()
+print(" ") print("target: "..target)
+print("nextbet: "..nextbet)
+print("chance: "..chance)
+print("Profit to go: "..target - balance)
+print(" ")
+end
+if (losecount>=9) then
+b+=0.015
+c=-1
+nextbet = previousbet*1.35
+end
+if (losecount>=19) then
+d+=0.05
+c=3
+nextbet = previousbet*(1.3+d)
+end  
+end
+end
+
